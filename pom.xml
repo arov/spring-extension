@@ -7,7 +7,7 @@
 	<artifactId>spring-parent</artifactId>
 	<packaging>pom</packaging>
 	<name>Cloudseal Spring parent pom</name>
-	<version>1.0</version>
+	<version>1.0-SNAPSHOT</version>
 
 	<modules>
 		<module>saml-core</module>
@@ -43,6 +43,12 @@
 			<timezone>+2</timezone>
 		</developer>
 	</developers>
+
+	<scm>
+		<connection>scm:git:git@github.com:cloudseal/spring-extension.git</connection>
+		<url>scm:git:git@github.com:cloudseal/spring-extension.git</url>
+		<developerConnection>scm:git:git@github.com:cloudseal/spring-extension.git</developerConnection>
+	</scm>
 
 	<repositories>
 		<repository>
@@ -123,7 +129,7 @@
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-api</artifactId>
 				<version>1.6.3</version>
-			</dependency>			
+			</dependency>
 			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-log4j12</artifactId>

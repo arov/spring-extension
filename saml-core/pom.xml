@@ -12,7 +12,7 @@
 	<artifactId>saml2-core</artifactId>
 	<packaging>jar</packaging>
 	<name>Spring Security SAML core</name>
-	<version>1.0</version>
+	<version>1.0-SNAPSHOT</version>
 
 	<description>Slightly modified fork of the Spring SAML project (http://static.springsource.org/spring-security/site/extensions.html). Full credit to Vladimír Schäfer and the Spring Security team</description>
 	<inceptionYear>2011</inceptionYear>

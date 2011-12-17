@@ -1,0 +1,11 @@
+.project
+.settings/
+saml-core/.classpath
+saml-core/.project
+saml-core/.settings/
+saml-core/target/
+spring-client/.classpath
+spring-client/.project
+spring-client/.settings/
+spring-client/target/
+
