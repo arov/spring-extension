@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<EntityDescriptor entityID="http://nordea.cloudseal.com:8080/idpserver/saml" xmlns="urn:oasis:names:tc:SAML:2.0:metadata">
+    <IDPSSODescriptor WantAuthnRequestsSigned="true" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+        <KeyDescriptor use="signing">
+            <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+                <ds:X509Data>
+                    <ds:X509Certificate>
+MIIDkzCCAvygAwIBAgIJAICK5bbQ9wjyMA0GCSqGSIb3DQEBBQUAMIGOMQswCQYD
+VQQGEwJFRTERMA8GA1UECBMISGFyanVtYWExEDAOBgNVBAcTB1RhbGxpbm4xEzAR
+BgNVBAoTCkNsb3VkIFNlYWwxEzARBgNVBAMTCkNsb3VkIFNlYWwxMDAuBgkqhkiG
+9w0BCQEWIXRvYnkuaG9ic29uQHJhcHRvcmNvbnN1bHRhbnRzLmNvbTAeFw0xMTA0
+MjEwNzE1MDNaFw0xMTA1MjEwNzE1MDNaMIGOMQswCQYDVQQGEwJFRTERMA8GA1UE
+CBMISGFyanVtYWExEDAOBgNVBAcTB1RhbGxpbm4xEzARBgNVBAoTCkNsb3VkIFNl
+YWwxEzARBgNVBAMTCkNsb3VkIFNlYWwxMDAuBgkqhkiG9w0BCQEWIXRvYnkuaG9i
+c29uQHJhcHRvcmNvbnN1bHRhbnRzLmNvbTCBnzANBgkqhkiG9w0BAQEFAAOBjQAw
+gYkCgYEA38h2npXPVA+A7bKoUSDfrpslk0VjPek3+NBtOxPj18fPtf5/MQuHKWpT
+4uFYGz1r+PF0PyeayBjvnfQbtmPqwBZzr3h0+vttap5MzrKGw+3cItwNYD2XAKSf
+BJLujDXOK+wGWY9ywh7ukTzU2JfYI+cDlOeb0Hq/krT9VMXwXF8CAwEAAaOB9jCB
+8zAdBgNVHQ4EFgQUIl0XmE3J40lMf6345IdTFE+izAowgcMGA1UdIwSBuzCBuIAU
+Il0XmE3J40lMf6345IdTFE+izAqhgZSkgZEwgY4xCzAJBgNVBAYTAkVFMREwDwYD
+VQQIEwhIYXJqdW1hYTEQMA4GA1UEBxMHVGFsbGlubjETMBEGA1UEChMKQ2xvdWQg
+U2VhbDETMBEGA1UEAxMKQ2xvdWQgU2VhbDEwMC4GCSqGSIb3DQEJARYhdG9ieS5o
+b2Jzb25AcmFwdG9yY29uc3VsdGFudHMuY29tggkAgIrlttD3CPIwDAYDVR0TBAUw
+AwEB/zANBgkqhkiG9w0BAQUFAAOBgQBCqi8yOx8Alhj2MJWYs5pYwh++cgXwgi9v
+Jnq0quZRhuwytEaVbQ+JOK4QMKX0BL4KTHyOD67V1DzjqRUZIZETze8UGDgvxOMX
+4790cy6dyVk/CRhet++8hhUR8ihtOY7ppA6ZarH3Le4S6rnCmc/hpzu0AsmCnmOw
+T+CoFFvSEg==
+                    </ds:X509Certificate>
+                </ds:X509Data>
+            </ds:KeyInfo>
+        </KeyDescriptor>
+        <ArtifactResolutionService index="0" isDefault="true" Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="http://localhost:8080/http://localhost:8080/idpserver/ArtifactResolver/metaAlias/idp"/>
+        <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="http://nordea.cloudseal.com:8080/idpserver/logout" ResponseLocation="http://nordea.cloudseal.com:8080/idpserver/logout"/>
+        <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="http://localhost:8080/idpserver/IDPSloPOST/metaAlias/idp" ResponseLocation="http://localhost:8080/idpserver/IDPSloPOST/metaAlias/idp"/>
+        <SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="http://localhost:8080/idpserver/IDPSloSoap/metaAlias/idp"/>
+        <ManageNameIDService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="http://localhost:8080/idpserver/IDPMniRedirect/metaAlias/idp" ResponseLocation="http://localhost:8080/idpserver/IDPMniRedirect/metaAlias/idp"/>
+        <ManageNameIDService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="http://localhost:8080/idpserver/IDPMniPOST/metaAlias/idp" ResponseLocation="http://localhost:8080/idpserver/IDPMniPOST/metaAlias/idp"/>
+        <ManageNameIDService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="http://localhost:8080/idpserver/IDPMniSoap/metaAlias/idp"/>
+        <NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:persistent</NameIDFormat>
+        <NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</NameIDFormat>
+        <NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress</NameIDFormat>
+        <NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified</NameIDFormat>
+        <SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="http://nordea.cloudseal.com:8080/idpserver/saml"/>
+        <SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="http://localhost:8080/idpserver/SSOSoap/metaAlias/idp"/>
+        <NameIDMappingService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="http://localhost:8080/idpserver/NIMSoap/metaAlias/idp"/>
+        <AssertionIDRequestService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="http://localhost:8080/idpserver/AIDReqSoap/IDPRole/metaAlias/idp"/>
+        <AssertionIDRequestService Binding="urn:oasis:names:tc:SAML:2.0:bindings:URI" Location="http://localhost:8080/idpserver/AIDReqUri/IDPRole/metaAlias/idp"/>
+    </IDPSSODescriptor>
+</EntityDescriptor>

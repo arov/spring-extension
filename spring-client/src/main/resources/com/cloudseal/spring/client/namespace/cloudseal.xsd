@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns="http://www.cloudseal.com/schema/spring"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.cloudseal.com/schema/spring"
+           elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+    <xs:element name="sso" type="SSO"/>
+
+    <xs:complexType name="SSO">
+        <xs:all>
+            <xs:element name="authentication-provider" type="AuthenticationProvider" minOccurs="0"/>
+            <xs:element name="keystore" type="KeyStore"/>
+            <xs:element name="metadata" type="Metadata"/>
+        </xs:all>
+        <xs:attribute name="endpoint" type="xs:string" use="required"/>
+        <xs:attribute name="entry-point-id" type="xs:ID" use="required"/>
+        <xs:attribute name="app-id" type="xs:string" use="optional"/>
+        <xs:attribute name="logout-url" type="xs:string" use="optional"/>
+        <xs:attribute name="user-details-service-ref" type="xs:IDREF" use="optional"/>
+        <xs:attribute name="web-sso-profile-ref" type="xs:IDREF" use="optional"/>
+        <xs:attribute name="web-sso-profile-consumer-ref" type="xs:IDREF" use="optional"/>
+        <xs:attribute name="context-provider-ref" type="xs:IDREF" use="optional"/>
+        <xs:attribute name="metadata-generator-filter-ref" type="xs:IDREF" use="optional"/>
+        <xs:attribute name="single-logout-profile-ref" type="xs:IDREF" use="optional"/>
+    </xs:complexType>
+
+    <xs:complexType name="AuthenticationProvider">
+        <xs:attribute name="id" type="xs:ID" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="KeyStore">
+        <xs:sequence>
+            <xs:element name="key" type="Key" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="location" type="xs:string" use="required"/>
+        <xs:attribute name="password" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="Key">
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="password" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="Metadata">
+        <xs:attribute name="location" type="xs:string" use="required"/>
+    </xs:complexType>
+</xs:schema>
