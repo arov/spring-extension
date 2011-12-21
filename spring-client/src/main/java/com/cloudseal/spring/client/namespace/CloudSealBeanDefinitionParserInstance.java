@@ -1,19 +1,19 @@
-/* Copyright 2011 Cloudseal O†
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.cloudseal.spring.client.namespace;
 
+/* Copyright 2011 Cloudseal O†
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
 import static org.springframework.util.xml.DomUtils.getChildElementByTagName;
 import static org.springframework.util.xml.DomUtils.getChildElementsByTagName;
 
@@ -40,7 +40,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.saml.*;
 import org.springframework.security.saml.context.SAMLContextProviderImpl;
-import org.springframework.security.saml.key.JKSKeyManager;
 import org.springframework.security.saml.log.SAMLDefaultLogger;
 import org.springframework.security.saml.metadata.*;
 import org.springframework.security.saml.processor.HTTPPostBinding;
@@ -84,6 +83,7 @@ public class CloudSealBeanDefinitionParserInstance {
     private static final String KEYSTORE_NODE = "keystore";
     private static final String KEYSTORE_LOCATION_ATTRIBUTE = "location";
     private static final String KEYSTORE_PASSWORD_ATTRIBUTE = "password";
+    private static final String KEYSTORE_TYPE_ATTRIBUTE = "type";
     private static final String KEYSTORE_KEY_NODE = "key";
     private static final String KEYSTORE_KEY_NAME_ATTRIBUTE = "name";
     private static final String KEYSTORE_KEY_PASSWORD_ATTRIBUTE = "password";
@@ -117,7 +117,7 @@ public class CloudSealBeanDefinitionParserInstance {
         createAndRegisterSSOProfile();
         BeanDefinition entryPoint = parseAndRegisterEntryPoint();
 
-        parseAndRegisterKeyManager();
+        createAndRegisterKeyManager();
         parseAndRegisterMetadataManager();
         createAndRegisterFilters(authenticationManager, entryPoint);
     }
@@ -149,29 +149,37 @@ public class CloudSealBeanDefinitionParserInstance {
         return registerBean(builder);
     }
 
-    private void parseAndRegisterKeyManager() {
+    private void createAndRegisterKeyManager() {
         Element keyManagerNode = getRequiredElement(rootNode, KEYSTORE_NODE);
-        Map<String, String> keys = new ManagedMap<String, String>();
         List<Element> keyNodes = getChildElementsByTagName(keyManagerNode, KEYSTORE_KEY_NODE);
-        if (keyNodes.isEmpty())
-            throw missingElementException(KEYSTORE_KEY_NODE);
+        if (keyNodes.isEmpty()) {
+            throw createElementException(KEYSTORE_KEY_NODE);
+        }
+
         String defaultKey = null;
+        Map<String, String> keys = new ManagedMap<String, String>();
         for (Element keyNode : keyNodes) {
             String key = getRequiredAttribute(keyNode, KEYSTORE_KEY_NAME_ATTRIBUTE);
             String password = getRequiredAttribute(keyNode, KEYSTORE_KEY_PASSWORD_ATTRIBUTE);
             keys.put(key, password);
-            if (defaultKey == null)
+            if (defaultKey == null) {
                 defaultKey = key;
+            }
         }
 
         String location = getRequiredAttribute(keyManagerNode, KEYSTORE_LOCATION_ATTRIBUTE);
         String filePassword = getRequiredAttribute(keyManagerNode, KEYSTORE_PASSWORD_ATTRIBUTE);
+        String storeType = keyManagerNode.getAttribute(KEYSTORE_TYPE_ATTRIBUTE);
+        if (storeType.trim().isEmpty()) {
+            storeType = "JKS";
+        }
 
-        BeanDefinitionBuilder builder = createBean(JKSKeyManager.class);
+        BeanDefinitionBuilder builder = createBean(CloudSealKeyManagerImpl.class);
         builder.addConstructorArgValue(getResourceFromLocation(location));
         builder.addConstructorArgValue(filePassword);
         builder.addConstructorArgValue(keys);
         builder.addConstructorArgValue(defaultKey);
+        builder.addConstructorArgValue(storeType);
         registerBean(builder);
     }
 
@@ -515,12 +523,12 @@ public class CloudSealBeanDefinitionParserInstance {
     private Element getRequiredElement(Element parentElement, String elementTag) {
         Element element = getChildElementByTagName(parentElement, elementTag);
         if (element == null) {
-            throw missingElementException(elementTag);
+            throw createElementException(elementTag);
         }
         return element;
     }
 
-    private IllegalStateException missingElementException(String elementTag) {
+    private IllegalStateException createElementException(String elementTag) {
         return new IllegalStateException("Missing element in CloudSeal configuration: " + elementTag);
     }
 
