@@ -26,6 +26,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 
+/**
+ * This filter is part of browser initiated single log out feature of CloudSeal IDP.
+ * IDP knows which applications user is logged in into and when logout is performed simply
+ * redirects user to them by means of showing images referencing this filter.
+ * In case of success this filter shows success icon.  
+ */
 public class CloudSealLogoutImageFilter implements Filter {
 
     private static final int DEFAULT_BUFFER_SIZE = 1024;

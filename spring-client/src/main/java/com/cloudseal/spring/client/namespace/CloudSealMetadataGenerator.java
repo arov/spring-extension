@@ -17,6 +17,11 @@ package com.cloudseal.spring.client.namespace;
 import org.springframework.security.saml.metadata.ExtendedMetadata;
 import org.springframework.security.saml.metadata.MetadataGenerator;
 
+/**
+ * We need to override default MetadataGenerator in order to disable idp discovery feature.
+ * This feature redirects request to a page where user is able to select from a list of 
+ * available idps.
+ */
 public class CloudSealMetadataGenerator extends MetadataGenerator {
 
     @Override
