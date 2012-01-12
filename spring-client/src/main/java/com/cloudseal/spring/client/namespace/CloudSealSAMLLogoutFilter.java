@@ -18,6 +18,14 @@ import org.springframework.security.saml.SAMLLogoutFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
+/**
+ * Default SAMLLogoutFilter sends logout request to IDP and then listens for response. 
+ * Local logout is performed only when logout response is received. 
+ * 
+ * We have a different flow - local logout is performed at once, logout request is dispatched to IDP, but it will not answer.
+ * Trying to init SAMLLogoutFilter by passing it 2 arrays as constructor arguments in the namespace parser will cause it
+ * to actually call another constructor and logoutHandler won't be added, hence this filter was created. 
+ */
 public class CloudSealSAMLLogoutFilter extends SAMLLogoutFilter {
 
     public CloudSealSAMLLogoutFilter(LogoutSuccessHandler logoutSuccessHandler, LogoutHandler logoutHandler) {

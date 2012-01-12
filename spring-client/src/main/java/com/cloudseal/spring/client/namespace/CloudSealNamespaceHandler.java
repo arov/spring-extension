@@ -16,6 +16,9 @@ package com.cloudseal.spring.client.namespace;
 
 import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
 
+/**
+ * Entry point for parsing CloudSeal Spring namespace
+ */
 public class CloudSealNamespaceHandler extends NamespaceHandlerSupport {
     
     private static final String SAML_TAG = "sso";
