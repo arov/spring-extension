@@ -57,7 +57,9 @@ import com.cloudseal.spring.client.userdetails.SAMLUserDetailsServiceAdapter;
 
 public class CloudSealBeanDefinitionParserInstance {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CloudSealBeanDefinitionParserInstance.class);
+    public static final String BROWSER_INITIATED_SSO_URL = "/cloudSeal/logout.png";
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(CloudSealBeanDefinitionParserInstance.class);
 
     private static final String SPRING_AUTH_MANAGER_ID = "org.springframework.security.authenticationManager";
     private static final String SPRING_FILTER_CHAIN_ID = "org.springframework.security.filterChainProxy";
@@ -66,12 +68,18 @@ public class CloudSealBeanDefinitionParserInstance {
     private static final String ROOT_ENTRY_POINT_ID_ATTRIBUTE = "entry-point-id";
     private static final String ROOT_APP_ID_ATTRIBUTE = "app-id";
     private static final String ROOT_USER_DETAILS_SERVICE_REF_ATTRIBUTE = "user-details-service-ref";
+    
+    /* 
+     * Attributes below were added to inject custom beans to support routing saml request 
+     * to different IDP urls in Admin Console. 
+     */
     private static final String ROOT_WEB_SSO_PROFILE_REF_ATTRIBUTE = "web-sso-profile-ref";
     private static final String ROOT_WEB_SSO_PROFILE_CONSUMER_REF_ATTRIBUTE = "web-sso-profile-consumer-ref";
     private static final String ROOT_CONTEXT_PROVIDER_REF_ATTRIBUTE = "context-provider-ref";
     private static final String ROOT_METADATA_DISPLAY_FILTER_REF_ATTRIBUTE = "metadata-display-filter-ref";
     private static final String ROOT_METADATA_GENERATOR_FILTER_REF_ATTRIBUTE = "metadata-generator-filter-ref";
     private static final String ROOT_SINGLE_LOGOUT_PROFILE_REF_ATTRIBUTE = "single-logout-profile-ref";
+    
     private static final String ROOT_LOGOUT_FILTER_URL_ATTRIBUTE = "logout-url";
     private static final String DEFAULT_LOGOUT_FILTER_URL_ATTRIBUTE = "/cslogout";
     private static final String AUTHENTICATION_PROVIDER_NODE = "authentication-provider";
@@ -328,8 +336,18 @@ public class CloudSealBeanDefinitionParserInstance {
 
     private BeanDefinition createMetadataGeneratorFilter() {
         BeanDefinitionBuilder generator = createBean(CloudSealMetadataGenerator.class);
-        generator.addPropertyValue("includeDiscovery", false);
+		/*
+		 * When first request is performed, metadata generator will generate
+		 * service provider metadata which will contain supported bindings. By
+		 * default it will add all bindings to metadata and select a first one
+		 * to put into request unless there is assertionConsumerIndex set
+		 * pointing at the preferred binding method. CloudSeal IDP supports POST
+		 * binding and it is NOT the one metadata generator will select by default.
+		 * So we pass the assertionConsumerIndex parameter, but it will break if the 
+		 * order of bindings will change in future versions.
+		 */
         generator.addPropertyValue("assertionConsumerIndex", 1);
+        generator.addPropertyValue("includeDiscovery", false);
         BeanDefinition generatorBean = generator.getBeanDefinition();
         registerBean(generatorBean);
 
@@ -413,7 +431,8 @@ public class CloudSealBeanDefinitionParserInstance {
         addFilterChainMapValue(samlFilterMap, "/saml/SSO/**", processingFilter);
         addFilterChainMapValue(samlFilterMap, "/saml/SingleLogout/**", logoutProcessingFilter);
         addFilterChainMapValue(samlFilterMap, "/saml/discovery/**", createBean(SAMLDiscovery.class).getBeanDefinition());
-        addFilterChainMapValue(samlFilterMap, "/cloudSeal/logout.png", createBean(CloudSealLogoutImageFilter.class)
+        // this is our filter to support browser initiated sign out, IDP also knows about this IDP
+        addFilterChainMapValue(samlFilterMap, BROWSER_INITIATED_SSO_URL, createBean(CloudSealLogoutImageFilter.class)
                 .getBeanDefinition());
 
         BeanDefinitionBuilder samlFilterChain = createBean(FilterChainProxy.class);
