@@ -27,9 +27,9 @@ public class SAMLUserDetailsServiceAdapter implements SAMLUserDetailsService {
 
     @Override
     public UserDetails loadUserBySAML(SAMLCredential credential) throws UsernameNotFoundException {
-        CloudSealUserAttributes attributes = new CloudSealUserAttributes(credential);
+        CloudsealUserAttributes attributes = new CloudsealUserAttributes(credential);
         if (userDetailsService == null) {
-            return new CloudSealUserDetails(attributes);
+            return new CloudsealUserDetails(attributes);
         } else if (CloudSealUserDetailsService.class.isInstance(userDetailsService)) {
             return ((CloudSealUserDetailsService) userDetailsService).loadUserByUsername(attributes);
         }

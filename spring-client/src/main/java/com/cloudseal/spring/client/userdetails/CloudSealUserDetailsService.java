@@ -21,6 +21,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 public interface CloudSealUserDetailsService extends UserDetailsService {
     
-    UserDetails loadUserByUsername(CloudSealUserAttributes attributes) throws UsernameNotFoundException,
+    UserDetails loadUserByUsername(CloudsealUserAttributes attributes) throws UsernameNotFoundException,
             DataAccessException;
 }

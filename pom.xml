@@ -52,9 +52,9 @@
 
 	<repositories>
 		<repository>
-			<id>cloudseal-public</id>
+			<id>public-release</id>
 			<name>Cloudseal public repo</name>
-			<url>http://repo.cloudseal.com/public-release</url>
+			<url>https://maven.cloudseal.com/repo/public-release</url>
 			<layout>default</layout>
 		</repository>
 	</repositories>
@@ -164,14 +164,14 @@
 
 	<distributionManagement>
 		<snapshotRepository>
-			<id>cloudsealSnapshots</id>
-			<name>cloudseal-snapshots</name>
-			<url>http://repo.cloudseal.com/libs-snapshot-local</url>
+			<id>libs-snapshot-local</id>
+			<name>libs-snapshot-local</name>
+			<url>https://maven.cloudseal.com/repo/libs-snapshot-local</url>
 		</snapshotRepository>
 		<repository>
-			<id>cloudseal-public-local</id>
+			<id>public-release-local</id>
 			<name>Cloudseal public repository</name>
-			<url>http://repo.cloudseal.com/public-release-local</url>
+			<url>https://maven.cloudseal.com/repo/public-release-local</url>
 		</repository>
 	</distributionManagement>
 

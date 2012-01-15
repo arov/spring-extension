@@ -24,7 +24,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.saml.SAMLCredential;
 
-public class CloudSealUserAttributes {
+public class CloudsealUserAttributes {
 
     public static final String FIRST_NAME = "firstName";
     public static final String LAST_NAME = "lastName";
@@ -64,7 +64,7 @@ public class CloudSealUserAttributes {
     private final String timezone;
     private final Collection<GrantedAuthority> roles;
 
-    public CloudSealUserAttributes(SAMLCredential credential) {
+    public CloudsealUserAttributes(SAMLCredential credential) {
         userName = getUserName(credential);
 
         Map<String, Collection<XMLObject>> attributes = getAttributes(credential);

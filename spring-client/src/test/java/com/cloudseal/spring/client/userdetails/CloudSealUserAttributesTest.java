@@ -15,7 +15,7 @@
 package com.cloudseal.spring.client.userdetails;
 
 import static com.cloudseal.spring.client.namespace.IsCollection.hasSameOrder;
-import static com.cloudseal.spring.client.userdetails.CloudSealUserAttributes.*;
+import static com.cloudseal.spring.client.userdetails.CloudsealUserAttributes.*;
 import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -50,16 +50,16 @@ public class CloudSealUserAttributesTest {
         final String userName = "username@company.com";
 
         setNameIDValue(userName);
-        assertThat(new CloudSealUserAttributes(credential).getUserName(), is(userName));
+        assertThat(new CloudsealUserAttributes(credential).getUserName(), is(userName));
     }
 
     @Test
     public void userNameMustBeNotNull() {
         setNameIDValue(null);
-        assertThat(new CloudSealUserAttributes(credential).getUserName(), is(""));
+        assertThat(new CloudsealUserAttributes(credential).getUserName(), is(""));
 
         setNameID(null);
-        assertThat(new CloudSealUserAttributes(credential).getUserName(), is(""));
+        assertThat(new CloudsealUserAttributes(credential).getUserName(), is(""));
     }
 
     @Test
@@ -67,7 +67,7 @@ public class CloudSealUserAttributesTest {
         final String firstName = "First";
 
         setStringAttributes(FIRST_NAME, firstName);
-        assertThat(new CloudSealUserAttributes(credential).getFirstName(), is(firstName));
+        assertThat(new CloudsealUserAttributes(credential).getFirstName(), is(firstName));
     }
 
     @Test
@@ -76,7 +76,7 @@ public class CloudSealUserAttributesTest {
         final String firstName2 = "Name";
 
         setStringAttributes(FIRST_NAME, firstName1, firstName2);
-        assertThat(new CloudSealUserAttributes(credential).getFirstName(), is(firstName1 + "," + firstName2));
+        assertThat(new CloudsealUserAttributes(credential).getFirstName(), is(firstName1 + "," + firstName2));
     }
 
     @Test
@@ -85,7 +85,7 @@ public class CloudSealUserAttributesTest {
         final String firstName2 = "Name";
 
         setAttributes(createStringAttribute(FIRST_NAME, firstName1), createStringAttribute(FIRST_NAME, firstName2));
-        assertThat(new CloudSealUserAttributes(credential).getFirstName(), is(firstName1 + "," + firstName2));
+        assertThat(new CloudsealUserAttributes(credential).getFirstName(), is(firstName1 + "," + firstName2));
     }
 
     @Test
@@ -93,7 +93,7 @@ public class CloudSealUserAttributesTest {
         final String lastName = "Last";
 
         setStringAttributes(LAST_NAME, lastName);
-        assertThat(new CloudSealUserAttributes(credential).getLastName(), is(lastName));
+        assertThat(new CloudsealUserAttributes(credential).getLastName(), is(lastName));
     }
 
     @Test
@@ -102,7 +102,7 @@ public class CloudSealUserAttributesTest {
         final String lastName2 = "Name";
 
         setStringAttributes(LAST_NAME, lastName1, lastName2);
-        assertThat(new CloudSealUserAttributes(credential).getLastName(), is(lastName1 + "," + lastName2));
+        assertThat(new CloudsealUserAttributes(credential).getLastName(), is(lastName1 + "," + lastName2));
     }
 
     @Test
@@ -111,7 +111,7 @@ public class CloudSealUserAttributesTest {
         final String lastName2 = "Name";
 
         setAttributes(createStringAttribute(LAST_NAME, lastName1), createStringAttribute(LAST_NAME, lastName2));
-        assertThat(new CloudSealUserAttributes(credential).getLastName(), is(lastName1 + "," + lastName2));
+        assertThat(new CloudsealUserAttributes(credential).getLastName(), is(lastName1 + "," + lastName2));
     }
 
     @Test
@@ -119,7 +119,7 @@ public class CloudSealUserAttributesTest {
         final String email = "user@company.com";
 
         setStringAttributes(EMAIL, email);
-        assertThat(new CloudSealUserAttributes(credential).getEmail(), is(email));
+        assertThat(new CloudsealUserAttributes(credential).getEmail(), is(email));
     }
 
     @Test
@@ -128,7 +128,7 @@ public class CloudSealUserAttributesTest {
         final String email2 = "user@university.edu";
 
         setStringAttributes(EMAIL, email1, email2);
-        assertThat(new CloudSealUserAttributes(credential).getEmail(), is(email1 + "," + email2));
+        assertThat(new CloudsealUserAttributes(credential).getEmail(), is(email1 + "," + email2));
     }
 
     @Test
@@ -137,7 +137,7 @@ public class CloudSealUserAttributesTest {
         final String email2 = "user@university.edu";
 
         setAttributes(createStringAttribute(EMAIL, email1), createStringAttribute(EMAIL, email2));
-        assertThat(new CloudSealUserAttributes(credential).getEmail(), is(email1 + "," + email2));
+        assertThat(new CloudsealUserAttributes(credential).getEmail(), is(email1 + "," + email2));
     }
 
     @Test
@@ -145,7 +145,7 @@ public class CloudSealUserAttributesTest {
         final GrantedAuthority role = new GrantedAuthorityImpl("USER");
 
         setStringAttributes(ROLES, role.getAuthority());
-        assertThat(new CloudSealUserAttributes(credential).getRoles(), hasSameOrder(asList(role)));
+        assertThat(new CloudsealUserAttributes(credential).getRoles(), hasSameOrder(asList(role)));
     }
 
     @Test
@@ -154,7 +154,7 @@ public class CloudSealUserAttributesTest {
         final GrantedAuthority role2 = new GrantedAuthorityImpl("ADMIN");
 
         setStringAttributes(ROLES, role1.getAuthority(), role2.getAuthority());
-        assertThat(new CloudSealUserAttributes(credential).getRoles(), hasSameOrder(asList(role1, role2)));
+        assertThat(new CloudsealUserAttributes(credential).getRoles(), hasSameOrder(asList(role1, role2)));
     }
 
     @Test
@@ -164,7 +164,7 @@ public class CloudSealUserAttributesTest {
 
         setAttributes(createStringAttribute(ROLES, role1.getAuthority()),
                 createStringAttribute(ROLES, role2.getAuthority()));
-        assertThat(new CloudSealUserAttributes(credential).getRoles(), hasSameOrder(asList(role1, role2)));
+        assertThat(new CloudsealUserAttributes(credential).getRoles(), hasSameOrder(asList(role1, role2)));
     }
 
     @Test
@@ -173,7 +173,7 @@ public class CloudSealUserAttributesTest {
         final XMLObject object = mock(XMLObject.class);
 
         setXMLObjectAttributes(attributeName, object);
-        assertThat(new CloudSealUserAttributes(credential).getAttribute(attributeName), hasSameOrder(asList(object)));
+        assertThat(new CloudsealUserAttributes(credential).getAttribute(attributeName), hasSameOrder(asList(object)));
     }
 
     @Test
@@ -183,7 +183,7 @@ public class CloudSealUserAttributesTest {
         final XMLObject object2 = mock(XMLObject.class);
 
         setXMLObjectAttributes(attributeName, object1, object2);
-        assertThat(new CloudSealUserAttributes(credential).getAttribute(attributeName),
+        assertThat(new CloudsealUserAttributes(credential).getAttribute(attributeName),
                 hasSameOrder(asList(object1, object2)));
     }
 
@@ -195,7 +195,7 @@ public class CloudSealUserAttributesTest {
 
         setAttributes(createXMLObjectAttribute(attributeName, object1),
                 createXMLObjectAttribute(attributeName, object2));
-        assertThat(new CloudSealUserAttributes(credential).getAttribute(attributeName),
+        assertThat(new CloudsealUserAttributes(credential).getAttribute(attributeName),
                 hasSameOrder(asList(object1, object2)));
     }
 

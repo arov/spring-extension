@@ -32,7 +32,7 @@
 		<dependency>
 			<groupId>com.cloudseal.spring</groupId>
 			<artifactId>saml2-core</artifactId>
-			<version>1.0</version>
+			<version>1.0-SNAPSHOT</version>
 		</dependency>
 		
 		<!-- test dependencies -->
@@ -70,17 +70,4 @@
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
-
-	<distributionManagement>
-		<snapshotRepository>
-			<id>cloudsealSnapshots</id>
-			<name>cloudseal-snapshots</name>
-			<url>http://repo.cloudseal.com/libs-snapshot-local</url>
-		</snapshotRepository>
-		<repository>
-			<id>cloudseal-public-local</id>
-			<name>Cloudseal public repository</name>
-			<url>http://repo.cloudseal.com/public-release-local</url>
-		</repository>
-	</distributionManagement>
 </project>

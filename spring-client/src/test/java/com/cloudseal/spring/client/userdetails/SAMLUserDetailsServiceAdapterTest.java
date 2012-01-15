@@ -39,7 +39,7 @@ public class SAMLUserDetailsServiceAdapterTest {
     @Test
     public void internalImplementationIfNoServiceSet() {
         final UserDetails details = new SAMLUserDetailsServiceAdapter().loadUserBySAML(credential);
-        assertThat(details, is(instanceOf(CloudSealUserDetails.class)));
+        assertThat(details, is(instanceOf(CloudsealUserDetails.class)));
     }
 
     @Test
@@ -48,7 +48,7 @@ public class SAMLUserDetailsServiceAdapterTest {
         adapter.setUserDetailsService(null);
 
         final UserDetails details = adapter.loadUserBySAML(credential);
-        assertThat(details, is(instanceOf(CloudSealUserDetails.class)));
+        assertThat(details, is(instanceOf(CloudsealUserDetails.class)));
     }
 
     @Test
@@ -69,7 +69,7 @@ public class SAMLUserDetailsServiceAdapterTest {
         final UserDetails details = mock(UserDetails.class);
         final CloudSealUserDetailsService service = mock(CloudSealUserDetailsService.class);
         when(service.loadUserByUsername(anyString())).thenReturn(details);
-        when(service.loadUserByUsername(any(CloudSealUserAttributes.class))).thenReturn(details);
+        when(service.loadUserByUsername(any(CloudsealUserAttributes.class))).thenReturn(details);
 
         final SAMLUserDetailsServiceAdapter adapter = new SAMLUserDetailsServiceAdapter();
         adapter.setUserDetailsService(service);
@@ -77,6 +77,6 @@ public class SAMLUserDetailsServiceAdapterTest {
         adapter.loadUserBySAML(credential);
         verify(service, times(0)).loadUserByUsername(anyString());
 
-        verify(service, times(1)).loadUserByUsername(any(CloudSealUserAttributes.class));
+        verify(service, times(1)).loadUserByUsername(any(CloudsealUserAttributes.class));
     }
 }

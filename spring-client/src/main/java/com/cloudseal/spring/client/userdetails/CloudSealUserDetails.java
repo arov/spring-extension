@@ -19,17 +19,17 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class CloudSealUserDetails implements UserDetails {
+public class CloudsealUserDetails implements UserDetails {
     
     private static final long serialVersionUID = 1L;
 
-    private final CloudSealUserAttributes attributes;
+    private final CloudsealUserAttributes attributes;
 
-    public CloudSealUserDetails(CloudSealUserAttributes attributes) {
+    public CloudsealUserDetails(CloudsealUserAttributes attributes) {
         this.attributes = attributes;
     }
     
-    public CloudSealUserAttributes getAttributes() {
+    public CloudsealUserAttributes getAttributes() {
         return attributes;
     }
 
